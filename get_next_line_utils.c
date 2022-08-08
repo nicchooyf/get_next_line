@@ -6,7 +6,7 @@
 /*   By: nchoo <nchoo@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 04:20:44 by nchoo             #+#    #+#             */
-/*   Updated: 2022/08/08 14:54:02 by nchoo            ###   ########.fr       */
+/*   Updated: 2022/08/08 15:43:25 by nchoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,25 +77,25 @@ char	*ft_strchr(char *str, int c)
 	return (NULL);
 }
 
-char    *ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
-    char    *p;
-    size_t  i;
+	char	*p;
+	size_t	i;
 
-    i = 0;
-    if (!s)
-        return (NULL);
-    if (len > (ft_strlen(s) - start))
-        p = malloc(sizeof(char) * (ft_strlen(s) - start + 1));
-    else
-        p = malloc(sizeof(char) * (len + 1));
-    if (!p)
-        return (NULL);
-    while (i < len && s[i + start])
-    {
-        p[i] = s[i + start];
-        i++;
-    }
-    p[i] = '\0';
-    return (p);
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (len > (ft_strlen(s) - start))
+		p = malloc(sizeof(char) * (ft_strlen(s) - start + 1));
+	else
+		p = malloc(sizeof(char) * (len + 1));
+	if (!p)
+		return (NULL);
+	while (i < len && s[i + start])
+	{
+		p[i] = s[i + start];
+		i++;
+	}
+	p[i] = '\0';
+	return (p);
 }
