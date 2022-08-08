@@ -6,55 +6,22 @@
 /*   By: nchoo <nchoo@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 04:18:26 by nchoo             #+#    #+#             */
-/*   Updated: 2022/08/05 17:16:39 by nchoo            ###   ########.fr       */
+/*   Updated: 2022/08/08 15:37:15 by nchoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_calloc(size_t n, size_t size)
-{
-	void	*res;
-	size_t	i;
-
-	if (n >= SIZE_MAX || size >= SIZE_MAX)
-		return (NULL);
-	i = (n * size);
-	res = malloc(n * size);
-	if (!res)
-		return (NULL);
-	ft_memset(res, 0, i);
-	return (res);
-}
-
-char	*ft_substr(const char *s, unsigned int start, size_t len)
-{
-	char	*p;
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (NULL);
-	if (start >= ft_strlen(s))
-		return (p = ft_calloc(1, sizeof(char)));
-	else if (len > (ft_strlen(s) - start))
-		p = malloc(sizeof(char) * (ft_strlen(s) - start + 1));
-	else 
-		p = malloc(sizeof(char) * (len + 1));
-	if (!p)
-		return (NULL);
-	while (i < len && s[i + start])
-	{
-		p[i] = s[i + start];
-		i++;
-	}
-	p[i] = '\0';
-	return (p);
-}
-
+/*
+ *	Function to return the read line, and clears the static variable
+ *	up to either the point of '\n' or EOF
+ *
+ *	When a '\n' is encountered, returns the string up to the '\n' and replaces
+ *	the current static variable with what comes after the '\n'
+ */
 static char	*next_line(char **s)
 {
-	int	i;
+	int		i;
 	char	*ret;
 	char	*tmp;
 
@@ -67,20 +34,26 @@ static char	*next_line(char **s)
 		tmp = ft_strdup(*s + i + 1);
 		free(*s);
 		*s = tmp;
+		if (!**s)
+		{
+			free(*s);
+			*s = NULL;
+		}
+		return (ret);
 	}
-	else
-	{
-		ret = ft_strdup(*s);
-		free(*s);
-		*s = NULL;
-	}
+	ret = ft_strdup(*s);
+	free(*s);
+	*s = NULL;
 	return (ret);
 }
 
-static void read_file(int fd, char *buffer, char **s, int n)
+/*
+ *	Function to read the file up to either the EOF or '\n'
+ */
+static void	read_file(int fd, char *buffer, char **s, int n)
 {
 	char	*tmp;
-	
+
 	while (n > 0)
 	{
 		buffer[n] = '\0';
@@ -98,12 +71,18 @@ static void read_file(int fd, char *buffer, char **s, int n)
 	}
 }
 
+/*
+ *	Static char set as a double array to address multiple FDs
+ *
+ *	Continuously reads the buffer_size until either a '\n' or EOF
+ *	Calls the function to return the read line
+ */
 char	*get_next_line(int fd)
 {
 	static char		*s[FD_SIZE];
-	char 			*buffer;
-	ssize_t 		n;
-	
+	char			*buffer;
+	ssize_t			n;
+
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = malloc(BUFFER_SIZE + 1);

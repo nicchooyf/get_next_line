@@ -6,27 +6,13 @@
 /*   By: nchoo <nchoo@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 04:20:44 by nchoo             #+#    #+#             */
-/*   Updated: 2022/08/05 08:59:36 by nchoo            ###   ########.fr       */
+/*   Updated: 2022/08/08 14:54:02 by nchoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_memset(void *str, int c, size_t n)
-{
-	size_t			i;
-	unsigned char	*p;
-	unsigned char	*tmp;
-
-	i = -1;
-	p = str;
-	tmp = p;
-	while (++i < n)
-		*tmp++ = (unsigned char) c;
-	return (p);
-}
-
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen(char *str)
 {
 	size_t	i;
 
@@ -45,7 +31,7 @@ char	*ft_strdup(char *src)
 	i = 0;
 	len = ft_strlen(src);
 	p = (char *)malloc((len + 1) * (sizeof(char)));
-	if (p == 0)
+	if (!p)
 		return (NULL);
 	while (src[i])
 	{
@@ -56,7 +42,7 @@ char	*ft_strdup(char *src)
 	return (p);
 }
 
-char	*ft_strjoin(const char *s, const char *s2)
+char	*ft_strjoin(char *s, char *s2)
 {
 	int		n;
 	char	*tmp;
@@ -77,7 +63,7 @@ char	*ft_strjoin(const char *s, const char *s2)
 	return (p);
 }
 
-char	*ft_strchr(const char *str, int c)
+char	*ft_strchr(char *str, int c)
 {
 	c %= 128;
 	if (c == 0)
@@ -89,4 +75,27 @@ char	*ft_strchr(const char *str, int c)
 		str++;
 	}
 	return (NULL);
+}
+
+char    *ft_substr(char *s, unsigned int start, size_t len)
+{
+    char    *p;
+    size_t  i;
+
+    i = 0;
+    if (!s)
+        return (NULL);
+    if (len > (ft_strlen(s) - start))
+        p = malloc(sizeof(char) * (ft_strlen(s) - start + 1));
+    else
+        p = malloc(sizeof(char) * (len + 1));
+    if (!p)
+        return (NULL);
+    while (i < len && s[i + start])
+    {
+        p[i] = s[i + start];
+        i++;
+    }
+    p[i] = '\0';
+    return (p);
 }

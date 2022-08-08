@@ -6,7 +6,7 @@
 /*   By: nchoo <nchoo@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 04:18:26 by nchoo             #+#    #+#             */
-/*   Updated: 2022/08/06 01:14:38 by nchoo            ###   ########.fr       */
+/*   Updated: 2022/08/08 12:28:52 by nchoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 
 static char	*next_line(char **s)
 {
-	int	i;
+	int		i;
 	char	*ret;
 	char	*tmp;
 
@@ -77,10 +77,10 @@ static char	*next_line(char **s)
 	return (ret);
 }
 
-static void read_file(int fd, char *buffer, char **s, int n)
+static void	read_file(int fd, char *buffer, char **s, int n)
 {
 	char	*tmp;
-	
+
 	while (n > 0)
 	{
 		buffer[n] = '\0';
@@ -101,9 +101,9 @@ static void read_file(int fd, char *buffer, char **s, int n)
 char	*get_next_line(int fd)
 {
 	static char		*s[FD_SIZE];
-	char 			*buffer;
-	ssize_t 		n;
-	
+	char			*buffer;
+	ssize_t			n;
+
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = malloc(BUFFER_SIZE + 1);
