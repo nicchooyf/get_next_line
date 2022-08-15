@@ -6,7 +6,7 @@
 /*   By: nchoo <nchoo@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 04:19:30 by nchoo             #+#    #+#             */
-/*   Updated: 2022/08/08 13:54:04 by nchoo            ###   ########.fr       */
+/*   Updated: 2022/08/15 12:29:13 by nchoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,5 @@ char	*ft_strdup(char *src);
 char	*ft_strjoin(const char *s, const char *s2);
 char	*ft_strchr(const char *str, int c);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
-void	*ft_memset(void *str, int c, size_t n);
 
 #endif
